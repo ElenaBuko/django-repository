@@ -1,0 +1,30 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#</body>#}
+{#</html>#}
+
+
+{#{% for question in questions %}#}
+{#    {{ question.question_text }} - {{ question.pub_date }} <br/>#}
+{#{% endfor %}#}
+
+<h3>Please enter your question</h3>
+
+
+<form action="/questions" method="POST">
+    {% csrf_token %}
+    <input type="text" name="question_text" placeholder="type your question"></br>
+    <input type="submit" name="submit_question" value="Submit Question">
+</form>
+
+<h3>Questions that have already been asked: </h3></br>
+
+{% for question in questions %}
+    {{ question.question_text }} - {{ question.pub_date }} <br/>
+{% endfor %}
