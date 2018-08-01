@@ -21,9 +21,11 @@ from polls.views import (
     contact_us_view,
     questions,
     enter_question,
+    question_page,
 )
 
 urlpatterns = [
+    path('question_test', question_page),
     path('questions', enter_question),
     path('polls', questions),
     path('admin/', admin.site.urls),

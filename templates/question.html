@@ -14,7 +14,11 @@
 {#    {{ question.question_text }} - {{ question.pub_date }} <br/>#}
 {#{% endfor %}#}
 
-<h3>Please enter your question</h3>
+{% for question in questions %}
+    <a href="/question_test">{{ question.id }} . {{ question.question_text }} (created: {{ question.pub_date }})</a> <br/>
+{% endfor %}
+
+<h3>Add new question:</h3>
 
 
 <form action="/questions" method="POST">
@@ -23,8 +27,3 @@
     <input type="submit" name="submit_question" value="Submit Question">
 </form>
 
-<h3>Questions that have already been asked: </h3></br>
-
-{% for question in questions %}
-    {{ question.question_text }} - {{ question.pub_date }} <br/>
-{% endfor %}

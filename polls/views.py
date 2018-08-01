@@ -77,3 +77,7 @@ def enter_question(request):
         q.save()
     all_questions = Question.objects.all()
     return render(request, 'question.html', context={'questions': all_questions})
+
+
+def question_page(request, ):
+    return render(request, 'question_answer.html')
