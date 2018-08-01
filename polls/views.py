@@ -6,7 +6,8 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 
 from polls.helpers import calculate_sum
-
+from polls.models import Question
+from datetime import datetime
 
 def index_view(request):
     user_agent = request.META['HTTP_USER_AGENT']
@@ -69,8 +70,7 @@ def questions(request):
 
 
 def enter_question(request):
-    from polls.models import Question
-    from datetime import datetime
+
     if request.method == 'POST':
         question_text = request.POST['question_text']
         q = Question(question_text=question_text, pub_date=datetime.utcnow())
@@ -79,5 +79,15 @@ def enter_question(request):
     return render(request, 'question.html', context={'questions': all_questions})
 
 
-def question_page(request, ):
-    return render(request, 'question_answer.html')
+from polls.models import Choice, Question
+# all_questions = Question.objects.all()
+
+def question_page(request, question_pk):
+    question = Question.objects.get(pk=question_pk)
+
+    if request.method == 'POST':
+        answer = request.POST['answer']
+        choice = Choice(question=question, choice_text=answer)
+        choice.save()
+
+    return render(request, 'question_detail.html', context={'question': question})
